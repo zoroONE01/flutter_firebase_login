@@ -2,36 +2,57 @@ name: Flutter CI
 
 on:
   push:
-    branches: [ "main" ]  # Chạy workflow khi có push lên nhánh main
+    branches: ["main"] # Chạy workflow khi có push lên nhánh main
   pull_request:
-    branches: [ "main" ]  # Chạy workflow khi có pull request vào nhánh main
+    branches: ["main"] # Chạy workflow khi có pull request vào nhánh main
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Sử dụng môi trường Ubuntu mới nhất
+    runs-on: ubuntu-latest # Sử dụng môi trường Ubuntu mới nhất
 
     steps:
-    - uses: actions/checkout@v3  # Bước này để checkout mã nguồn từ kho lưu trữ
+      - uses: actions/checkout@v3 # Bước này để checkout mã nguồn từ kho lưu trữ
 
-    - uses: actions/setup-java@v3  # Thiết lập Java, cần thiết cho việc build ứng dụng Flutter
-      with:
-        distribution: 'zulu'  # Sử dụng Zulu JDK
-        java-version: '11'  # Phiên bản Java 11
+      - uses: actions/setup-java@v3 # Thiết lập Java, cần thiết cho việc build ứng dụng Flutter
+        with:
+          distribution: "zulu"
+          java-version: "11"
 
-    - uses: subosito/flutter-action@v2  # Thiết lập Flutter
-      with:
-        flutter-version: '3.24.0'  # Sử dụng phiên bản Flutter stable
+      - uses: subosito/flutter-action@v2 # Thiết lập Flutter
+        with:
+          flutter-version: "3.24.0"
 
-    - name: Install dependencies  # Cài đặt các phụ thuộc của dự án
-      run: flutter pub get
+      - name: Install dependencies # Cài đặt các phụ thuộc của dự án
+        run: flutter pub get
 
-    - name: Run tests with coverage  # Chạy các bài kiểm tra và tạo báo cáo coverage
-      run: flutter test --coverage
+      - name: Run tests with coverage # Chạy các bài kiểm tra và tạo báo cáo coverage
+        run: flutter test --coverage
 
-    - name: Upload coverage report  # Tải lên báo cáo coverage để dễ dàng xem và phân tích
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-report  # Tên của artifact
-        path: coverage/lcov.info  # Đường dẫn tới tệp báo cáo coverage
-      if: always()
+      - name: Determine success or failure
+        id: result
+        run: echo "::set-output name=success::$([[ $? == 0 ]] && echo 'true' || echo 'false')"
 
+      - name: Upload coverage report # Tải lên báo cáo coverage để dễ dàng xem và phân tích
+        if: steps.result.outputs.success == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/lcov.info
+
+      - name: Generate HTML report if tests fail
+        if: steps.result.outputs.success == 'false'
+        run: genhtml coverage/lcov.info -o coverage/html
+
+      - name: Send email with HTML report if tests fail
+        if: steps.result.outputs.success == 'false'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com # Địa chỉ SMTP server của Gmail
+          server_port: 587 # Cổng của SMTP server
+          username: ${{ secrets.SMTP_USERNAME }} # Tên đăng nhập email của bạn
+          password: ${{ secrets.SMTP_PASSWORD }} # App Password của bạn
+          subject: "Test Coverage Report"
+          to: lekimnguyen671@gmail.com # Email của bạn
+          from: lekimnguyen671@gmail.com # Email gửi từ
+          content_type: text/html
+          attachments: coverage/html/index.html
