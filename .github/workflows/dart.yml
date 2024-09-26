@@ -1,0 +1,35 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ "main" ]  # Chạy workflow khi có push lên nhánh main
+  pull_request:
+    branches: [ "main" ]  # Chạy workflow khi có pull request vào nhánh main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Sử dụng môi trường Ubuntu mới nhất
+
+    steps:
+    - uses: actions/checkout@v3  # Bước này để checkout mã nguồn từ kho lưu trữ
+
+    - uses: actions/setup-java@v3  # Thiết lập Java, cần thiết cho việc build ứng dụng Flutter
+      with:
+        distribution: 'zulu'  # Sử dụng Zulu JDK
+        java-version: '11'  # Phiên bản Java 11
+
+    - uses: subosito/flutter-action@v2  # Thiết lập Flutter
+      with:
+        flutter-version: 'stable'  # Sử dụng phiên bản Flutter stable
+
+    - name: Install dependencies  # Cài đặt các phụ thuộc của dự án
+      run: flutter pub get
+
+    - name: Run tests with coverage  # Chạy các bài kiểm tra và tạo báo cáo coverage
+      run: flutter test --coverage
+
+    - name: Upload coverage report  # Tải lên báo cáo coverage để dễ dàng xem và phân tích
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report  # Tên của artifact
+        path: coverage/lcov.info  # Đường dẫn tới tệp báo cáo coverage
