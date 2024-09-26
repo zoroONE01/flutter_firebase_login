@@ -1,0 +1,76 @@
+Test case ID;Item Test;Description;Pre-conditions;Step;Expected Results;PG Selftest;Selftest result;PG Note;1st Test Execution;;;;;;;2nd Test Execution;;;;;;;3rd Test Execution;;;;;;;;;;
+;Main;Sub;;;;;;;;;;;Test Result;ID bug;Test Date;Tester;Browser;OS;Comment;Test Result;ID bug;Test Date;Tester;Browser;OS;Comment;Test Result;ID bug;Test Date;Tester;Browser;OS;Comment
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GUI;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+G-1;Background;Check background;- Screen [Login] was displayed successfully;- Check background of screen [Login];- Background of screen [Login] was displayed the correct color, image and padding according to the design;O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+G-2;Label [Login];Check display label [Login];- Check display of label [Login];- Label [Login] was displayed with the correct text, align and format according to the design;;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+G-3;Textbox [Email];Check display textbox [Email];- Check display of textbox [Email];"- Textbox [Email] was displayed with the correct align and format according to the design
+- Placeholder: ""Email""";;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+G-4;Textbox [Password];Check display textbox [Password];- Check display of textbox [Password];"- Textbox [Password] was displayed with the correct align and format according to the design
+- Placeholder: ""Password""";;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+G-5;Button [Login];Check display button [Login];- Check display of button [Login];"- Button [Login] was displayed the correct text, align and format according to the design
+- Button [Login]: enable";;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+G-6;Button [Google Login];Check display button [Google Login];- Check display of button [Google Login];"- Button [Google Login] was displayed the correct text, align and format according to the design
+- Button [Google Login]: enable";;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+G-7;Icon [Password visibility];Check display icon [Password visibility];- Check display of icon [Password visibility];"- Icon [Password visibility] was displayed the correct text, align and format according to the design
+- Icon [Password visibility]: enable""";;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+G-8;Text [Forgot password];Check display text [Forgot password];- Check display of text [Forgot password];- Text [Forgot password] was displayed the correct text, align and format according to the design;;;;OK;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Function;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-1;Email Validation;Check email validation;- Input invalid email;- Check email validation;"- Show error message: """"Invalid email""""""";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-2;Password Validation;Check password validation;- Input invalid password;- Check password validation;"- Show error message: """"Invalid password""""""";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-3;Login with Credentials;Check login with credentials;- Input valid email and password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-4;Login with Credentials;Check login with credentials success;- Input valid email and password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator
+- Hide loading indicator
+- Show success message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-5;Login with Credentials;Check login with credentials failure;- Input valid email and password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-6;Google Login;Check Google login;- Tap on button [Google Login];"- Call logInWithGoogle API
+- Show loading indicator";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-7;Google Login;Check Google login success;- Tap on button [Google Login];"- Call logInWithGoogle API
+- Show loading indicator
+- Hide loading indicator
+- Show success message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-8;Google Login;Check Google login failure;- Tap on button [Google Login];"- Call logInWithGoogle API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-9;Email Validation;Check email validation with empty input;- Input empty email;- Check email validation;"- Show error message: """"Email is required""""""";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-10;Password Validation;Check password validation with empty input;- Input empty password;- Check password validation;"- Show error message: """"Password is required""""""";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-11;Login with Credentials;Check login with credentials and invalid email;- Input invalid email and valid password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-12;Login with Credentials;Check login with credentials and invalid password;- Input valid email and invalid password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-13;Google Login;Check Google login with network error;- Tap on button [Google Login];"- Call logInWithGoogle API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-14;Email Changed;Check email changed;- Input valid email;- Call emailChanged method;- email field is updated with the new value;O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-15;Password Changed;Check password changed;- Input valid password;- Call passwordChanged method;- password field is updated with the new value;O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-16;Email Validation;Check email validation with special characters;- Input email with special characters;- Check email validation;"- Show error message: """"Invalid email""""""";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-17;Password Validation;Check password validation with special characters;- Input password with special characters;- Check password validation;"- Show error message: """"Invalid password""""""";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-18;Login with Credentials;Check login with credentials and network error;- Input valid email and password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-19;Login with Credentials;Check login with credentials and server error;- Input valid email and password;- Tap on button [Login];"- Call logInWithEmailAndPassword API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-20;Google Login;Check Google login with invalid credentials;- Tap on button [Google Login];"- Call logInWithGoogle API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;;
+F-21;Google Login;Check Google login with network error;- Tap on button [Google Login];"- Call logInWithGoogle API
+- Show loading indicator
+- Hide loading indicator
+- Show error message";O;OK;;;;;;;;;;;;;;;;;;;;;;;;;;;
