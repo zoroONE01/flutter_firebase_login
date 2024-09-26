@@ -31,21 +31,22 @@ jobs:
 
       - name: Determine success or failure
         id: result
-        run: echo "::set-output name=success::$([[ $? == 0 ]] && echo 'true' || echo 'false')"
+        run: |
+          echo "success=$([[ $? == 0 ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
 
       - name: Upload coverage report # Tải lên báo cáo coverage để dễ dàng xem và phân tích
-        if: steps.result.outputs.success == 'true'
+        if: env.success == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: coverage/lcov.info
 
       - name: Generate HTML report if tests fail
-        if: steps.result.outputs.success == 'false'
+        if: env.success == 'false'
         run: genhtml coverage/lcov.info -o coverage/html
 
       - name: Send email with HTML report if tests fail
-        if: steps.result.outputs.success == 'false'
+        if: env.success == 'false'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com # Địa chỉ SMTP server của Gmail
