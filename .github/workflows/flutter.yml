@@ -49,6 +49,10 @@ jobs:
         if: env.success == 'false'
         run: genhtml coverage/lcov.info -o coverage/html
 
+      - name: Zip HTML report if tests fail
+        if: env.success == 'false'
+        run: zip -r coverage/html_report.zip coverage/html
+
       - name: Send email with HTML report if tests fail
         if: env.success == 'false'
         uses: dawidd6/action-send-mail@v3
@@ -61,4 +65,4 @@ jobs:
           to: lekimnguyen671@gmail.com # Email của bạn
           from: lekimnguyen671@gmail.com # Email gửi từ
           content_type: text/html
-          attachments: coverage/html/index.html
+          attachments: coverage/html_report.zip
