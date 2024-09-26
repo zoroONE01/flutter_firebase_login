@@ -20,7 +20,7 @@ jobs:
 
     - uses: subosito/flutter-action@v2  # Thiết lập Flutter
       with:
-        flutter-version: 'stable'  # Sử dụng phiên bản Flutter stable
+        flutter-version: '3.24.0'  # Sử dụng phiên bản Flutter stable
 
     - name: Install dependencies  # Cài đặt các phụ thuộc của dự án
       run: flutter pub get
