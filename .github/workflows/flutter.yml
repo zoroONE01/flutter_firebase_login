@@ -33,3 +33,5 @@ jobs:
       with:
         name: coverage-report  # Tên của artifact
         path: coverage/lcov.info  # Đường dẫn tới tệp báo cáo coverage
+      if: always()
+
