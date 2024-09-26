@@ -27,6 +27,7 @@ jobs:
 
       - name: Run tests with coverage # Chạy các bài kiểm tra và tạo báo cáo coverage
         run: flutter test --coverage
+        continue-on-error: true
 
       - name: Determine success or failure
         id: result
