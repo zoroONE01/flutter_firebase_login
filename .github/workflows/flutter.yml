@@ -41,6 +41,10 @@ jobs:
           name: coverage-report
           path: coverage/lcov.info
 
+      - name: Install lcov # Cài đặt lcov
+        if: env.success == 'false'
+        run: sudo apt-get install lcov
+
       - name: Generate HTML report if tests fail
         if: env.success == 'false'
         run: genhtml coverage/lcov.info -o coverage/html
