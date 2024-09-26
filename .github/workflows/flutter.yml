@@ -32,7 +32,7 @@ jobs:
       - name: Determine success or failure
         id: result
         run: |
-          echo "success=$([[ $? == 0 ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
+          echo "success=$([[ $? == 0 ]] && echo 'false' || echo 'true')" >> $GITHUB_ENV
 
       - name: Upload coverage report # Tải lên báo cáo coverage để dễ dàng xem và phân tích
         if: env.success == 'true'
