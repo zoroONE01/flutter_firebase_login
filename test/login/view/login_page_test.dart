@@ -9,7 +9,7 @@ class MockAuthenticationRepository extends Mock
     implements AuthenticationRepository {}
 
 void main() {
-  group('LoginPage', () {
+  group('LoginPag', () {
     late AuthenticationRepository authenticationRepository;
     late LoginCubit loginCubit;
 
